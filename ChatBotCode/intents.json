@@ -1,0 +1,91 @@
+{
+    "intents": [
+      {
+        "tag": "greeting",
+        "patterns": [
+          "Hi",
+          "Hey",
+          "How are you",
+          "Is anyone there?",
+          "Hello",
+          "Good day",
+          "What's up?",
+          "How is it going?"
+        ],
+        "responses": [
+          "Hey :-)",
+          "Hello, thanks for visiting",
+          "Hi there, what can I do for you?",
+          "Hi there, how can I help?",
+          "Hey human, what do you need?",
+          "Hey, let me know what you need help with."
+        ]
+      },
+      {
+        "tag": "goodbye",
+        "patterns": ["Bye", "See you later", "Goodbye"],
+        "responses": [
+          "See you later, thanks for visiting",
+          "Have a nice day",
+          "Bye! Come back again soon."
+        ]
+      },
+      {
+        "tag": "thanks",
+        "patterns": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!"],
+        "responses": ["Happy to help!", "Any time!", "My pleasure"]
+      },
+      {
+        "tag": "arms workout",
+        "patterns": [
+          "Please suggest me an arm workout", 
+          "What are some exercises for my arms?", 
+          "How do I get veins on my arms when I hit the gym?",
+          "Prepare me a guide on how to improve arm strength",
+          "How do I get bigger arms?"
+        ],
+        "responses": [
+          "Perform push-ups for chest, shoulders, and triceps. Do 3 sets of 10-15 reps. Follow with bicep curls using dumbbells, 3 sets of 12-15 reps. Next, tricep dips, 3 sets of 10-12 reps. Finish with overhead presses, 3 sets of 10-12 reps. Rest as needed between sets.!",
+          "Try this arm workout: Start with diamond push-ups (3 sets, 10-15 reps) to target triceps and chest. Then, do hammer curls with dumbbells (3 sets, 12-15 reps) for biceps. Finish with tricep kickbacks (3 sets, 10-12 reps) and shoulder presses (3 sets, 10-12 reps). Rest as needed.", 
+          "Here's an arm workout for you: Begin with tricep dips (3 sets, 10-15 reps) to engage the triceps. Move on to alternating dumbbell curls (3 sets, 12-15 reps) for biceps. Finish with overhead tricep extensions (3 sets, 10-12 reps). Rest as needed.",
+          "Start with push-ups (3 sets, 10-15 reps) to target chest and triceps. Follow with tricep pushdowns using a resistance band (3 sets, 12-15 reps). Finish with concentration curls (3 sets, 10-12 reps) for biceps. Rest as needed.",
+          "Try this quick and effective arm workout: Perform three sets of 12 bicep curls using dumbbells, followed by three sets of 12 tricep dips on a bench or chair. Finish with three sets of 10 hammer curls for overall arm sculpting."
+        ]
+      },
+      {
+        "tag": "legs workout",
+        "patterns": [
+          "Give me a killer leg workout.",
+          "What are some leg exercises I can do at the gym?",
+          "I want to maximize my leg strength. Help me!",
+          "What are some effective exercises for strengthening and toning the legs?",
+          "How can I target specific leg muscles like the quads, hamstrings, or calves?",
+          "How can I get bigger legs?"
+        ],
+        "responses": [
+          "Here's a quick leg workout: Perform three sets of 12 squats, followed by three sets of 12 lunges on each leg. Finish with three sets of 15 calf raises for strong and toned legs.",
+          "Do three sets of 12 squats, followed by three sets of 12 walking lunges. Finish with three sets of 15 glute bridges for a well-rounded leg workout that targets your quads, glutes, and hamstrings.",
+          "Perform three sets of 12 Bulgarian split squats on each leg, followed by three sets of 12 deadlifts using dumbbells or a barbell. Finish with three sets of 15 standing calf raises for strong and sculpted legs.",
+          "Perform three sets of 10 barbell squats, followed by three sets of 12 walking lunges on each leg. Finish with three sets of 15 hamstring curls using a stability ball for a complete lower body burn.",
+          "Do three sets of 12 step-ups on each leg using a bench or elevated surface, followed by three sets of 15 kettlebell swings. Finish with three sets of 12 seated calf raises for a well-rounded leg workout.",
+          "Perform three sets of 12 goblet squats using a dumbbell or kettlebell, followed by three sets of 12 Bulgarian split squats on each leg. Finish with three sets of 15 glute bridges for a challenging lower body workout."
+        ]
+      },
+      {
+        "tag": "healthy food",
+        "patterns": [
+          "what are some healthy food options?",
+          "What are some meals that can improve my health?",
+          "Give me some nutritious meal plans."
+        ],
+        "responses": [
+          "Healthy food options include fruits, vegetables, lean proteins like chicken and fish, whole grains such as quinoa and oats, healthy fats like avocado and nuts, and hydrating choices like water and herbal teas.",
+          "Try Greek yogurt, salmon, sweet potatoes, kale, almonds, quinoa, chia seeds, bell peppers, eggs, and olive oil.",
+          "Start your day with oatmeal, berries, and Greek yogurt. Enjoy a grilled chicken salad for lunch. Have baked salmon, quinoa, and steamed broccoli for dinner. Snack on apple slices with almond butter and nuts for energy.",
+          "Start your day with eggs, whole wheat toast, and avocado. Enjoy a spinach salad with grilled chicken for lunch. Dinner: roasted turkey breast, sweet potatoes, and green beans. For dessert, savor a refreshing fruit salad.",
+          "For breakfast, have a veggie omelet with whole wheat toast. Lunch: quinoa salad with mixed greens, beans, and grilled chicken. Dinner: baked fish, roasted vegetables, and a side of brown rice. Snack on Greek yogurt with berries.",
+          "Start your day with a protein-packed breakfast of scrambled eggs and spinach. Enjoy a colorful lunch salad with grilled shrimp, mixed greens, and avocado. Dinner: roasted chicken breast, quinoa, and steamed broccoli. Snack on carrot sticks with hummus."
+        ]
+      }
+    ]
+  }
