@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from model_service import return_response
+from ChatBotCode.model_service import return_response
 import torch
 
 app = Flask(__name__)

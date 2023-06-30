@@ -1,43 +1,50 @@
 import json
-from nltk_utils import tokenize, stem, bag_of_words
 import numpy as np
 from data_filtering import *
 
 import torch
 import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
-from model import NeuralNet
+from tqdm import tqdm
 
-X_train = []
-y_train = []
+from transformers import BertForSequenceClassification
 
-for (sentence, tag) in xy_vals:
-    X_train.append(bag_of_words(sentence, all_words))
-    y_train.append(tags.index(tag))
+X_train, y_train, attention_masks = get_data()
 
-X_train = np.array(X_train)
-y_train = np.array(y_train)
+X_train = torch.cat(X_train, dim=0)
+attention_masks = torch.cat(attention_masks, dim=0)
+y_train = torch.tensor(y_train)
+
+# print(f"Input: {X_train[0]}")
+# print(f"Output: {y_train}")
 
 class ChatDataset(Dataset):
-    def __init__(self):
+    def __init__(self, X_train, y_train, attention_masks):
         self.n_samples = len(X_train)
-        self.x_data = X_train
-        self.y_data = y_train
+        self.X_train = X_train
+        self.y_train = y_train
+        self.attention_masks = attention_masks
     
     def __getitem__(self, index):
-        return self.x_data[index], self.y_data[index]
+        X = self.X_train[index]
+        y = self.y_train[index]
+        attention_mask = self.attention_masks[index]
+
+        return {
+            'input_ids': X,
+            'tag': y,
+            'attention_mask': attention_mask,
+        }
 
     def __len__(self):
         return self.n_samples
 
 batch_size = 8
-input_size = len(X_train[0])
-hidden_size = 8
-output_size = len(tags)
 learning_rate = 0.001
-epochs = 1000
+epochs = 10
 
-dataset = ChatDataset()
+dataset = ChatDataset(X_train, y_train, attention_masks)
+
 train_loader = DataLoader(
     dataset = dataset,
     batch_size = batch_size,
@@ -46,38 +53,49 @@ train_loader = DataLoader(
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-model = NeuralNet(input_size, hidden_size, output_size).to(device)
+# model = NeuralNet(input_size, hidden_size, output_size).to(device)
+model = BertForSequenceClassification.from_pretrained('bert-base-uncased', num_labels=len(y_train))
+
 loss_fn = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
+progress_bar = tqdm(total=len(train_loader), desc='Training Progress')
+
+model.train()
 for epoch in range(epochs):
-    for (X, y) in train_loader:
-        X = X.to(device)
-        y = y.to(device)
+    for batch in train_loader:
+        X = batch['input_ids'].to(device)
+        y = batch['tag'].to(device)
+        attention_mask = batch['attention_mask'].to(device)
 
         # Compute prediction and loss
-        pred = model(X)
-        loss = loss_fn(pred, y)
+        output = model(input_ids=X, attention_mask=attention_mask)
+
+        loss = loss_fn(output.logits, y)
 
         # Backpropagation
         loss.backward()
         optimizer.step()
         optimizer.zero_grad()
 
+        progress_bar.update(1)
+
     if (epoch + 1) % 100 == 0:
         print(f"loss: {loss.item():.4f}  [{epoch+1}/{epochs}]")
 
 print(f"final_loss, loss={loss.item():.4f}")
 
-data = {
-    "model_state": model.state_dict(),
-    "input_size": input_size,
-    "hidden_size": hidden_size,
-    "output_size": output_size,
-    "all_words": all_words,
-    "tags": tags
-}
+progress_bar.close()
 
-model_scripted = torch.jit.script(model) # Export to TorchScript
-model_scripted.save('model_scripted.pt') # Save
+# data = {
+#     "model_state": model.state_dict(),
+#     "input_size": input_size,
+#     "hidden_size": hidden_size,
+#     "output_size": output_size,
+#     "all_words": all_words,
+#     "tags": tags
+# }
+
+# model_scripted = torch.jit.script(model) # Export to TorchScript
+# model_scripted.save('model_scripted.pt') # Save
 

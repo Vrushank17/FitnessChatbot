@@ -1,4 +1,4 @@
-from nltk_utils import tokenize, bag_of_words
+from utils import tokenize, bag_of_words
 import torch
 from data_filtering import *
 from train import model
